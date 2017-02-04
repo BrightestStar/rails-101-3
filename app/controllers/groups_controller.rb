@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_user! , only: [:new, :create]
+  before_action :authenticate_user! , only: [:new, :create, :update, :edit, :destroy]
 
   def index
     @groups = Group.all
@@ -11,6 +11,10 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.find(params[:id])
+
+    if current_user != @group.user
+      redirect_to root_path
+    end
   end
 
   def new
@@ -31,6 +35,10 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
 
+    if current_user != @group.user
+      redirect_to root_path
+    end
+
     if @group.update(group_params)
       redirect_to groups_path
     else
@@ -40,6 +48,10 @@ class GroupsController < ApplicationController
 
   def destroy
     @group = Group.find(params[:id])
+
+    if current_user != @group.user
+      redirect_to root_path
+    end
 
     @group.destroy
 
