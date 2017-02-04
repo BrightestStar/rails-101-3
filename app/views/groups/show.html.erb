@@ -19,11 +19,15 @@
         <tbody>
             <% @posts.each do |post| %>
             <tr>
-                <td><%= post.content %></td>
+                <td><%= link_to(post.content, group_post_path(@group)) %></td>
                 <td><%= post.user.email %></td>
                 <td><%= post.created_at %></td>
             </tr>
             <% end %>
         </tbody>
     </table>
+
+    <div class="text-center">
+        <%= will_paginate @posts %>
+    </div>
 </div>
