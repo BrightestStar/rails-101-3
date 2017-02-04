@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'welcome#index'
+
+  resources :groups do
+    
+  end
+
+  root 'groups#index'
 end
